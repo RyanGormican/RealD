@@ -13,7 +13,7 @@ export default function Post(){
 					<textarea className="bg-gray-800 h-48 w-full text-white rounded-lg p-2 text-sm"></textarea>
 					<p>0/300</p>
 				</div> 
-				<button>Submit</button>
+				<button className="w-full bg-cyan-600 text-white font-medium p-2 my-2 rounded-lg text-sm">Submit</button>
 			</form>
 		</div>
 	);
