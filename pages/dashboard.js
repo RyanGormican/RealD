@@ -8,7 +8,7 @@ export default function Dashbord(){
 
 	const getData = async () => { 
 
-	if (loading) retrun; 
+	if (loading) return;
 	if(!user) return route.push("/auth/login");
 
 	};
