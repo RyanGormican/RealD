@@ -9,16 +9,17 @@ import getFireStore} from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDr0ksOgdGzJ8v64uU3_HWMSOiDtg_qEME",
-  authDomain: "realdiscuss-f9836.firebaseapp.com",
-  projectId: "realdiscuss-f9836",
-  storageBucket: "realdiscuss-f9836.appspot.com",
-  messagingSenderId: "9005494487",
-  appId: "1:9005494487:web:fe889c56c290e94c490092",
-  measurementId: "G-XEKMS44HX3"
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_PROJECT_ID,
+  projectId: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const auth = getAuth();
+export const db = getFireStore(app);
