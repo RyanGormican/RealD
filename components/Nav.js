@@ -13,7 +13,7 @@ const [user, loading]  = useAuthState(auth);
 			<a href="https://www.linkedin.com/in/ryangormican/">
 				<Icon icon="mdi:linkedin" color="#0e76a8" width="40" />
 			</a>
-			<a href="https://github.com/RyanGormican/CompScidle">
+			<a href="https://github.com/RyanGormican/RealDiscuss">
 				<Icon icon="mdi:github" color="#e8eaea" width="40" />
 			</a>
 		</div>
