@@ -29,7 +29,7 @@ const [user, loading]  = useAuthState(auth);
 				<button className="font-medium bg-cyan-500 text-white py-2 px-4 rounded-mg textx-small">Post </button>
 			</Link> 
 			<Link href="/dashbord">
-				<h1>Dashboard</h1>
+				<img className="w-12 rounded-full cursor-pointer" src={user.photoURL} />
 			</Link> 
 			</div>
 		)}
