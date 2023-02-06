@@ -4,6 +4,7 @@ import {useRouter } from "next/router";
 import {useEffect, useState} from "react";
 import {collection, query, where, onSnapshot} from 'firebase/firestore';
 import Message from  "../components/message";
+import { Icon } from '@iconify/react';
 export default function Dashbord(){
 	const route = useRouter();
 	const [user, loading] = useAuthState(auth);
@@ -31,12 +32,15 @@ export default function Dashbord(){
 				{posts.map((post) => {
 				return (
 				<Message key={post.id} {...post} k>
-
+					<div className="flex gap-4">
+						<button className="text-pink-600 flex items-center justify-center gap-2 py-2 text-sm"> <Icon icon="material-symbols:delete-rounded" />  Delete </button>
+						<button className="text-teal-600 flex items-center justify-center gap-2 py-2 text-sm"> <Icon icon="mdi:lead-pencil" /> Edit </button>
+					</div>  
 				</Message>
 				);
 				})} 
 			</div>
-			<button onClick = {() =>auth.signOut()} > Sign out</button>
+			<button className="font-medium text-white bg-gray-800 py-2 px-4 my-6" onClick = {() =>auth.signOut()} > Sign out</button>
 		</div>
 	);
 }
