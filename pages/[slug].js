@@ -35,6 +35,7 @@ const submitMessage = async() => {
 const getComments = async () => {
 	const docRef = doc(db, "posts", routeData.id);
 	const docSnap = await getDoc(docRef);
+
 	 const unsubscribe= onSnapshot(docRef, (snapshot) =>  { 
         	setAllMessages(snapshot.data().comments);
         });
