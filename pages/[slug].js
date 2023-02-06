@@ -3,10 +3,11 @@ import {auth, db} from '../utils/firebase';
 import {useRouter} from 'next/router';
 import {useEffect, useState} from 'react';
 import {toast} from 'react-toastify';
+import {arrayUnion, doc, Timestamp, updateDoc} from "firebase/firestore";
 export default function Details() {
 	const router = useRouter();
 	const routeData = router.query;
-	const [message,setMessage] = useState('');
+	const [message,setMessage] = useState("");
 	const [allMessage,setAllMessages] = useState([]);
 // submit Message
 const submitMessage = async() => {
@@ -16,9 +17,9 @@ const submitMessage = async() => {
 			position: toast.POSITION.TOP_CENTER,
 			autoClose: 1500,
 	});
-	return;
+		return;
 	}
-	const docRef= doc(db,'posts',routeData.id);
+	const docRef= doc(db,"posts",routeData.id);
 	await updateDoc(docRef, {
 		comments: arrayUnion({
 			message,
@@ -29,7 +30,6 @@ const submitMessage = async() => {
 		});
 
 		setMessage("");
-	});
 };
 	return(
 		<div>
