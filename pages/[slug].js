@@ -31,6 +31,7 @@ const submitMessage = async() => {
 
 		setMessage("");
 };
+//
 
 const getComments = async () => {
 	const docRef = doc(db, "posts", routeData.id);
