@@ -2,14 +2,14 @@ import {auth, db} from '../utils/firebase';
 import {useRouter} from 'next/router';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useEffect, useState} from 'react';
-import {collection, addDoc, serverTimestamp} from 'firebase/firestore';
+import {collection, addDoc, serverTimestamp, doc} from 'firebase/firestore';
 import {toast} from 'react-toastify';
 export default function Post(){
 	// state
 	const [post, setPost] = useState({description : ""});
 	const [user, loading] = useAuthState(auth);
 	const route = useRouter();
-	cnst updateData= route.query;
+	const routeData= route.query;
 	// submit post 
 	const submitPost = async (e) => {
 		e.preventDefault();
@@ -27,6 +27,13 @@ export default function Post(){
 			});
 			return;
 		}
+
+		if(post?.hasOwnProperty("id")){
+			const docRef = doc(db,'posts',post.id);
+			const updatedPost= {...post, timestamp: severTimestamp()}
+			await updateDoc(updatedPost);
+			return route.push("/");
+		} else{
 		const collectionRef = collection(db, 'posts');
 		await addDoc(collectionRef, {
 			...post, 
@@ -37,11 +44,15 @@ export default function Post(){
 		});
 		setPost({description: ""});
 	return route.push("/");
+	}
 	};
 
 	const checkUser = async () => {
 		if(loading) return;
 		if(!user) route.pus("/auth/login");
+		if(routeData.id){
+			setPost({description: routeData.description, id: routeData.id})
+		}
 	};
 
 	useEffect(() => {
@@ -50,7 +61,7 @@ export default function Post(){
 	return (
 		<div className="my-20 p-12 shadow-lg rounded-lg max-w-md mx-auto">
 			<form onSubmit={submitPost}>
-				<h1 className="text-2xl font-bold"> Create a new post </h1>
+				<h1 className="text-2xl font-bold"> {post.hasOwnProperty('id') ? "Edit your post" : "Create a new post"}</h1>
 				<div className="py-2">
 					<h3 className="text-lg font-medium py-2"> Description </h3>
 					<textarea 
