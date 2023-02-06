@@ -3,7 +3,7 @@ import {auth, db} from '../utils/firebase';
 import {useRouter} from 'next/router';
 import {useEffect, useState} from 'react';
 import {toast} from 'react-toastify';
-import {arrayUnion, doc, Timestamp, updateDoc, getDoc} from "firebase/firestore";
+import {arrayUnion, doc, Timestamp, updateDoc, getDoc , onSnapshot} from "firebase/firestore";
 export default function Details() {
 	const router = useRouter();
 	const routeData = router.query;
@@ -35,8 +35,12 @@ const submitMessage = async() => {
 const getComments = async () => {
 	const docRef = doc(db, "posts", routeData.id);
 	const docSnap = await getDoc(docRef);
-	setAllMessages(docSnap.data().comments);
-};
+
+	 const unsubscribe= onSnapshot(docRef, (snapshot) =>  { 
+        	setAllMessages(snapshot.data().comments);
+        });
+        return unsubscribe;
+	};
 
 useEffect( () => {
 	if(!router.isReady) return;
