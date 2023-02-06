@@ -2,14 +2,23 @@ import {auth, db} from '../utils/firebase';
 import {useRouter} from 'next/router';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useEffect, useState} from 'react';
+import {collection, addDoc, serverTimestamp} from 'firebase/firestore';
 
 export default function Post(){
 	// state
 	const [post, setPost] = useState({description : ""});
+	const [user, loading] = useAuthState(auth);
 	// submit post 
 	const submitPost = async (e) => {
 		e.preventDefault();
-
+		const collectionRef = collection(db, 'posts');
+		await addDoc(collectionRef, {
+			...post, 
+			timestamp: serverTimestamp(),
+			user: user.uid,
+			avatar: user.photoURL,
+			username: user.displayName,
+		});
 	};
 	return (
 		<div className="my-20 p-12 shadow-lg rounded-lg max-w-md mx-auto">
