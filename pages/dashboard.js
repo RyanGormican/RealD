@@ -2,7 +2,7 @@ import {auth ,db} from "../utils/firebase";
 import {useAuthState } from "react-firebase-hooks/auth";
 import {useRouter } from "next/router";
 import {useEffect, useState} from "react";
-import {collection, query, where, onSnapshot} from 'firebase/firestore';
+import {collection, query, where, onSnapshot, doc, deleteDoc} from 'firebase/firestore';
 import Message from  "../components/message";
 import { Icon } from '@iconify/react';
 export default function Dashbord(){
@@ -20,7 +20,10 @@ export default function Dashbord(){
         });
         return unsubscribe;
 	};
-
+	const deletePost = async(id) => {
+		const docRef = doc(db, 'posts', id);
+		await deleteDoc(docRef);
+	}
 	useEffect(() => {
 	getData() 
 	}, [user,loading]);
@@ -31,9 +34,9 @@ export default function Dashbord(){
 			<div>
 				{posts.map((post) => {
 				return (
-				<Message key={post.id} {...post} k>
+				<Message {...post} key={post.id}>
 					<div className="flex gap-4">
-						<button className="text-pink-600 flex items-center justify-center gap-2 py-2 text-sm"> <Icon icon="material-symbols:delete-rounded" />  Delete </button>
+						<button onClick={deleteDoc} className="text-pink-600 flex items-center justify-center gap-2 py-2 text-sm"> <Icon icon="material-symbols:delete-rounded" />  Delete </button>
 						<button className="text-teal-600 flex items-center justify-center gap-2 py-2 text-sm"> <Icon icon="mdi:lead-pencil" /> Edit </button>
 					</div>  
 				</Message>
