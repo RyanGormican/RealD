@@ -8,6 +8,16 @@ export default function Details() {
 	const routeData = router.query;
 	const [message,setMessage] = useState('');
 	const [allMessage,setAllMessages] = useState([]);
+// submit Message
+const submitMessage = async() => {
+	if(!auth.currentUser) return router.push('/auth/login');
+	if(!message){
+		toast.error("Message field is empty!" , {
+			position: toast.POSITION.TOP_CENTER,
+			autoClose: 1500,
+	})
+	}
+}
 	return(
 		<div>
 			<Message {...routeData}>
@@ -18,10 +28,10 @@ export default function Details() {
 					</div>
 					<div className="py-6">
 						<h2 className="font-bold"> Comments</h2>
-						{setAllMessages.map(message => (
+						{setAllMessages?.map((message) => (
 						<div>
 							<div>
-
+								<img src="".alt=""./>
 							</div>
 						</div> 
 						))}
