@@ -2,7 +2,18 @@ import Head from "next/head";
 import Message from  "../components/message";
 import {useEffect, useState } from "react";
 import {db} from "../utils/firebase";
+import {collection, query , orderBy,onSnapshot } from "firebase/firestore";
 export default function Home() {
+//grab posts
+    const[allPosts,setAllPosts] = useState([]) ;
+
+    const getPosts = async () => {
+        const collectionRef=collection(db, 'posts');
+        const q = query(collectionRef, orderBy('timestamp','desc'));
+        const unsubscribe= onSnapshot(q, (snapshot) =>  { 
+        setAllPosts(snapshot.docs.map((doc) => 
+        });
+    }
   return (
     <div>
         <Head>
