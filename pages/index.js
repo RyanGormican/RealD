@@ -11,9 +11,14 @@ export default function Home() {
         const collectionRef=collection(db, 'posts');
         const q = query(collectionRef, orderBy('timestamp','desc'));
         const unsubscribe= onSnapshot(q, (snapshot) =>  { 
-        setAllPosts(snapshot.docs.map((doc) => 
+        setAllPosts(snapshot.docs.map((doc) => ({...doc.data()})));
         });
-    }
+        return unsubscribe;
+    };
+
+    useEffect(() => {
+       getPosts();
+    }, []);
   return (
     <div>
         <Head>
