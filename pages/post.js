@@ -30,8 +30,8 @@ export default function Post(){
 
 		if(post?.hasOwnProperty("id")){
 			const docRef = doc(db,'posts',post.id);
-			const updatedPost= {...post, timestamp: serverTimestamp(),}
-			await updateDoc(updatedPost);
+			const updatedPost= {...post, timestamp: serverTimestamp()}
+			await updateDoc(docRef, updatedPost);
 			toast.success('Post has been updated!',
 		{
 		position: toast.POSITION.TOP_CENTER,

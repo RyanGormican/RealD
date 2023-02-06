@@ -11,7 +11,14 @@ export default function Details() {
 	const [allMessage,setAllMessages] = useState([]);
 // submit Message
 const submitMessage = async() => {
-	if(!auth.currentUser) return router.push('/auth/login');
+	if(!auth.currentUser){
+	toast.error("Log in to be able to add comments!" , {
+			position: toast.POSITION.TOP_CENTER,
+			autoClose: 1500,
+	});
+	
+	return router.push('/auth/login');
+	}
 	if(!message){
 		toast.error("Message field is empty!" , {
 			position: toast.POSITION.TOP_CENTER,
