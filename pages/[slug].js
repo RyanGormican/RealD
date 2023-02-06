@@ -3,7 +3,7 @@ import {auth, db} from '../utils/firebase';
 import {useRouter} from 'next/router';
 import {useEffect, useState} from 'react';
 import {toast} from 'react-toastify';
-import {arrayUnion, doc, Timestamp, updateDoc} from "firebase/firestore";
+import {arrayUnion, doc, Timestamp, updateDoc, getDoc} from "firebase/firestore";
 export default function Details() {
 	const router = useRouter();
 	const routeData = router.query;
@@ -31,7 +31,18 @@ const submitMessage = async() => {
 
 		setMessage("");
 };
-	return(
+
+const getComments = async () => {
+	const docRef = doc(db, "posts", routeData.id);
+	const docSnap = await getDoc(docRef);
+	setAllMessages(docSnap.data().comments);
+};
+
+useEffect( () => {
+	if(!router.isReady) return;
+	getComments()
+},[router.isReady]);
+return(
 		<div>
 			<Message {...routeData}>
 				<div className="my-4">
@@ -41,11 +52,13 @@ const submitMessage = async() => {
 					</div>
 					<div className="py-6">
 						<h2 className="font-bold"> Comments</h2>
-						{setAllMessages?.map((message) => (
-						<div>
+						{allMessage?.map((message) => (
+						<div className="bg-white p-4 my-4 border-2" key={message.time}>
 							<div>
-								<img src="".alt=""./>
+								<img src={message.avatar} alt="" />
+								<h2>{message.userName}</h2>
 							</div>
+							<h2> {message.message} </h2>
 						</div> 
 						))}
 					</div>
