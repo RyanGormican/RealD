@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {collection, query, where, onSnapshot, doc, deleteDoc} from 'firebase/firestore';
 import Message from  "../components/message";
 import { Icon } from '@iconify/react';
+import Link from "next/link";
 export default function Dashbord(){
 	const route = useRouter();
 	const [user, loading] = useAuthState(auth);
@@ -37,7 +38,9 @@ export default function Dashbord(){
 				<Message {...post} key={post.id}>
 					<div className="flex gap-4">
 						<button onClick={() => deletePost(post.id)} className="text-pink-600 flex items-center justify-center gap-2 py-2 text-sm"> <Icon icon="material-symbols:delete-rounded" />  Delete </button>
+						<Link href={{pathname: "/post", query: post}}>
 						<button className="text-teal-600 flex items-center justify-center gap-2 py-2 text-sm"> <Icon icon="mdi:lead-pencil" /> Edit </button>
+						</Link>
 					</div>  
 				</Message>
 				);
