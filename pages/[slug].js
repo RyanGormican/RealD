@@ -12,7 +12,7 @@ export default function Details() {
 // submit Message
 const submitMessage = async() => {
 	if(!auth.currentUser){
-	toast.error("Log in to be able to add comments!" , {
+	toast.error("Login to be able to add comments!" , {
 			position: toast.POSITION.TOP_CENTER,
 			autoClose: 1500,
 	});
