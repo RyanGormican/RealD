@@ -30,12 +30,14 @@ export default function Home() {
         </Head> 
         <div className="my-12 text-lg font-medium">
             <h2> See what people are discussing </h2>
-            {allPosts.map((post) => (
-            {post.description.length > 0 && <Message key={post.id} {...post}> 
+            {allPosts
+            .filter((post) => post.description.length > 0)
+            .map((post) => (
+             <Message key={post.id} {...post}> 
                 <Link href={{pathname: `/${post.id}`, query:{...post}}}>
                 <button>{post.comments?.length > 0 ? post.comments?.length : 0} {post.comments?.length === 1 ? "comment" : "comments"} </button>
                 </Link>
-            </Message> }
+            </Message> 
             ))}
         </div>  
     </div>
