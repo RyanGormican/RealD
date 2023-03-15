@@ -16,6 +16,9 @@ const [user, loading]  = useAuthState(auth);
 			<a href="https://github.com/RyanGormican/RealDiscuss">
 				<Icon icon="mdi:github" color="#e8eaea" width="40" />
 			</a>
+			<a href="https://ryangormicanportfoliohub.vercel.app/">
+				<Icon icon="teenyicons:computer-outline" color="#199c35" width="40" />
+			</a>
 		</div>
 		<ul className="flex items-center gap-10">
 		{!user && (
